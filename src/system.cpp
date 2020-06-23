@@ -20,7 +20,30 @@ Processor& System::Cpu() { return cpu_; }
 vector<Process>& System::Processes() { return processes_; }
 
 // TODO: Return the system's kernel identifier (string)
-std::string System::Kernel() { return string(); }
+std::string System::Kernel() {   
+    string os, kernel;
+    string line;
+    string version;
+    std::ifstream stream(proc_version_);
+    
+    if(stream.is_open()) {
+        
+        while(std::getline(stream, line)){ 
+            std::istringstream linestream(line);
+            while (linestream >> os >> version >>kernel) {
+                if (os == "Linux") {
+                    
+                    return kernel;
+                    stream.close();
+                }
+            }
+        }
+        
+    }
+    stream.close();
+    
+  return kernel;
+}
 
 // TODO: Return the system's memory utilization
 float System::MemoryUtilization() { return 0.0; }

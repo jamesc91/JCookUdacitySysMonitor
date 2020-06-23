@@ -3,6 +3,9 @@
 
 #include <string>
 #include <vector>
+#include <fstream>
+#include <sstream>
+#include <iostream>
 
 #include "process.h"
 #include "processor.h"
@@ -22,6 +25,9 @@ class System {
  private:
   Processor cpu_ = {};
   std::vector<Process> processes_ = {};
+  const std::string proc_version_{"/proc/version"};
+  const std::string proc_meminfo_{"/proc/meminfo"};
+  const std::string proc_uptime_{"/proc/uptime"};
 };
 
 #endif
