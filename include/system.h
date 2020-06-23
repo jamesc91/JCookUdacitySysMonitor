@@ -28,6 +28,7 @@ class System {
   const std::string proc_version_{"/proc/version"};
   const std::string proc_meminfo_{"/proc/meminfo"};
   const std::string proc_uptime_{"/proc/uptime"};
+  const std::string os_release_{"/etc/os-release"};
 };
 
 #endif
