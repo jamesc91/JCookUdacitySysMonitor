@@ -18,7 +18,7 @@ Processor& System::Cpu() { return cpu_; }
 // TODO: Return a container composed of the system's processes
 vector<Process>& System::Processes() { return processes_; }
 
-// Done, define several strings, input file stream from proc/version. I'm lazy so I didn't make proc directory + version directory
+//Done, define several strings, input file stream from proc/version. I'm lazy so I didn't make proc directory + version directory
 std::string System::Kernel() {   
     string os, kernel;
     string line;
@@ -31,9 +31,9 @@ std::string System::Kernel() {
             
             std::istringstream linestream(line);
             
-            while (linestream >> os >> version >>kernel) {
+            while(linestream >> os >> version >> kernel){
                 
-                if (os == "Linux") {
+                if(os == "Linux"){
                     
                     return kernel;
                     stream.close();
@@ -47,9 +47,45 @@ std::string System::Kernel() {
 }
 
 // TODO: Return the system's memory utilization
-float System::MemoryUtilization() { return 0.0; }
+float System::MemoryUtilization() {
+    string line;
+    string key;
+    float value, mem_tot, mem_free;
+    std::ifstream stream(proc_meminfo_);
 
-// Done, I need to figure out a way to delete the first space in the double space 
+    bool flag1 = false;
+    bool flag2 = false;
+    
+    if(stream.is_open()){
+
+        while(std::getline(stream, line)){
+
+            std::istringstream linestream(line);
+
+            while(linestream >> key >> value){
+                
+                if(key == "MemTotal:"){
+                    mem_tot = value;
+                    flag1 = true;
+                }
+
+                if(key == "MemFree:"){
+                    mem_free = value;
+                    flag2 = true;
+                }
+
+                if(flag1 && flag2){
+                    return (mem_tot - mem_free) / mem_tot;
+                }
+                
+            }
+        }
+
+    }   
+    return (mem_tot - mem_free) / mem_tot;
+}
+
+//Done
 std::string System::OperatingSystem() { 
     
     string key, value;
@@ -86,7 +122,7 @@ std::string System::OperatingSystem() {
     return value;
 }
 
-// TODO: Return the number of processes actively running on the system
+//Done
 int System::RunningProcesses() { 
     string line;
     string key;
@@ -113,7 +149,7 @@ int System::RunningProcesses() {
     return 0; 
 }
 
-// TODO: Return the total number of processes on the system
+//Done
 int System::TotalProcesses() { 
     string line;
     string key;
@@ -140,7 +176,7 @@ int System::TotalProcesses() {
     return 0; 
 }
 
-// TODO: Return the number of seconds since the system started running
+//Done 
 long int System::UpTime() { 
     string line;
     string uptime_s, uptime_dec;
