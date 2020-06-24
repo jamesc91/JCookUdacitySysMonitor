@@ -13,12 +13,15 @@ using std::string;
 using std::vector;
 
 // TODO: Return the system's CPU
-Processor& System::Cpu() { return cpu_; }
+Processor& System::Cpu() { 
+    
+    return cpu_; 
+}
 
 // TODO: Return a container composed of the system's processes
 vector<Process>& System::Processes() { return processes_; }
 
-//Done, define several strings, input file stream from proc/version. I'm lazy so I didn't make proc directory + version directory
+//Done
 std::string System::Kernel() {   
     string os, kernel;
     string line;
@@ -46,7 +49,7 @@ std::string System::Kernel() {
     return kernel;
 }
 
-// TODO: Return the system's memory utilization
+//Done
 float System::MemoryUtilization() {
     string line;
     string key;
